@@ -97,7 +97,7 @@ If you wish to switch to your local **MySQL** server:
 
 The repository includes deployment configuration for Netlify and Render:
 
-- `netlify.toml` builds the Vite frontend from `tradecal/frontend` and enables SPA
+- `netlify.toml` builds the Vite frontend from `frontend` and enables SPA
   fallback routing.
 - `render.yaml` deploys the FastAPI backend and provisions a managed PostgreSQL
   database.
