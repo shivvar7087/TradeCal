@@ -4,6 +4,7 @@ from contextlib import asynccontextmanager
 
 from app.db.base import Base
 from app.db.session import engine, SessionLocal
+from app.core.config import settings
 from app.models import user, trading_entry, market_holiday
 from app.routers import auth, entries, calendar, analytics, holidays
 from app.routers.holidays import seed_holidays_if_empty
@@ -30,7 +31,11 @@ app = FastAPI(
 # Enable CORS for local development
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[
+        origin.strip()
+        for origin in settings.CORS_ORIGINS.split(",")
+        if origin.strip()
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

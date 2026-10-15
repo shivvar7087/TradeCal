@@ -92,3 +92,31 @@ If you wish to switch to your local **MySQL** server:
 6. **Authentication & Instant Demo**
    - Secure password hashing (bcrypt) and JWT authentication.
    - Includes a **1-Click Instant Demo Login** so you can test right away without registering manually.
+
+## Deployment
+
+The repository includes deployment configuration for Netlify and Render:
+
+- `netlify.toml` builds the Vite frontend from `tradecal/frontend` and enables SPA
+  fallback routing.
+- `render.yaml` deploys the FastAPI backend and provisions a managed PostgreSQL
+  database.
+
+### Render backend
+
+1. Create a new Blueprint on Render from this repository and select
+   `render.yaml`.
+2. Set `CORS_ORIGINS` to the final Netlify URL, for example
+   `https://your-site.netlify.app`.
+3. After the API deploys, copy its public URL, such as
+   `https://tradecal-api.onrender.com`.
+
+### Netlify frontend
+
+1. Create a new site on Netlify from this repository. The included
+   `netlify.toml` supplies the build settings.
+2. Add `VITE_API_URL` with the Render API URL without a trailing slash.
+3. Deploy or trigger a new build after saving the variable.
+
+Local environment templates are available at `backend/.env.example` and
+`frontend/.env.example`. Never commit real `.env` files or production secrets.

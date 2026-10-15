@@ -85,3 +85,4 @@ Open **`http://localhost:5173`** in your browser.
 - **Frontend**: React 18, Vite 5, Tailwind CSS, Lucide Icons
 - **Backend**: FastAPI, SQLAlchemy, Pydantic, Python-JOSE (JWT), Passlib (Bcrypt)
 - **Database**: SQLite (Zero setup, out-of-the-box persistence) / MySQL ready
+

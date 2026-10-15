@@ -13,6 +13,10 @@ class Settings:
     SECRET_KEY: str = os.getenv("SECRET_KEY", "tradecal-super-secret-key-change-in-production-2026")
     ACCESS_TOKEN_EXPIRE_MINUTES: int = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "10080"))  # 7 days default
     ALGORITHM: str = "HS256"
+    CORS_ORIGINS: str = os.getenv(
+        "CORS_ORIGINS",
+        "http://localhost:5173,http://127.0.0.1:5173",
+    )
 
     # Database settings
     # Default to local SQLite for instant zero-configuration setup.
@@ -28,6 +32,9 @@ class Settings:
     def DATABASE_URL(self) -> str:
         explicit_url = os.getenv("DATABASE_URL")
         if explicit_url:
+            # Render supplies PostgreSQL URLs using the legacy postgres scheme.
+            if explicit_url.startswith("postgres://"):
+                return explicit_url.replace("postgres://", "postgresql+psycopg2://", 1)
             return explicit_url
         if self.DB_TYPE.lower() == "mysql":
             pwd = f":{self.DB_PASSWORD}" if self.DB_PASSWORD else ""

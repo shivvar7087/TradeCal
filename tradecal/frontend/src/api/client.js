@@ -1,4 +1,4 @@
-const API_BASE = '/api';
+const API_BASE = (import.meta.env.VITE_API_URL || '').replace(/\/+$/, '');
 
 function getHeaders() {
   const token = localStorage.getItem('tradecal_token');
@@ -12,7 +12,7 @@ function getHeaders() {
 }
 
 async function request(endpoint, options = {}) {
-  const url = `${API_BASE}${endpoint}`;
+  const url = `${API_BASE}/api${endpoint}`;
   const config = {
     ...options,
     headers: {
@@ -125,4 +125,3 @@ export const api = {
     return request(`/holidays?year=${year}`);
   },
 };
-
